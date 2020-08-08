@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sub_Lyric extends Model
+class SubLyric extends Model
 {
     protected $fillable = [
         'lyric_id', 

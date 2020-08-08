@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lyric;
-use App\Sub_Lyric;
+use App\SubLyric;
 
 class SubLyricController extends Controller
 {
@@ -15,20 +15,54 @@ class SubLyricController extends Controller
      */
     public function index($id) {
         
-        return view('lyric_add', compact('id'));
+        return view('lyric_sub_add', compact('id'));
     }
 
     /**
-     * Membuat data detail lirik dari setiap versi
+     * Membuat data detail lirik dari salah satu versi
      *
-     * @return \App\Sub_Lyric
+     * @return \App\SubLyric
      */
     public function create(Request $request) {
-        Sub_Lyric::create([
+        SubLyric::create([
             'lyric_id' => $request->id,
             'lyric_language' => $request->language,
-            'lyric_content' => $request->lyric_content
+            'lyric_content' => json_encode($request->lyric_content)
         ]);
+        return redirect()->back();
+    }
+
+    /**
+     * Mengedit data detail lirik dari salah satu versi
+     *
+     * @return \App\SubLyric
+     */
+    public function edit($id) {
+        $sublyric = SubLyric::where('id', $id)
+                    ->first();
+        return view('lyric_sub_edit', compact('id', 'sublyric'));
+    }
+
+    /**
+     * Mengupdate data detail lirik dari salah satu versi
+     *
+     * @return \App\SubLyric
+     */
+    public function update(Request $request) {
+        SubLyric::where('id', $request->id)->update([
+            'lyric_language' => $request->language,
+            'lyric_content' => json_encode($request->lyric_content)
+        ]);
+        return redirect()->back();
+    }
+
+    /**
+     * Menghapus data detail lirik dari salah satu versi
+     *
+     * @return \App\SubLyric
+     */
+    public function delete($id) {
+        SubLyric::where('id', $id)->delete();
         return redirect()->back();
     }
 }

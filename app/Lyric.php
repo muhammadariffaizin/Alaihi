@@ -16,7 +16,7 @@ class Lyric extends Model
         return $this->belongsTo('App\Song');
     }
 
-    public function sub_lyric() {
-        return $this->hasMany('App\Sub_Lyric');
+    public function sublyric() {
+        return $this->hasMany('App\SubLyric');
     }
 }

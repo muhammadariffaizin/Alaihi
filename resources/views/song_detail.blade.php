@@ -31,14 +31,67 @@
                                         <h4 class="card-title">{{ $lyric->version }}</h4>
                                         <p class="card-text">{{ $lyric->description }}</p>
                                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                            @foreach($lyric->sublyric as $keysub => $sublyric)
+                                                <li class="nav-item" role="presentation">
+                                                    <a id="add-tab_{{ $key+1 }}_{{ $keysub+1 }}" 
+                                                    href="#add_{{ $key+1 }}_{{ $keysub+1 }}" 
+                                                    class="nav-link text-success{{ $keysub+1 === 1 ? ' active' : '' }}"
+                                                    role="tab" 
+                                                    data-toggle="tab" 
+                                                    aria-controls="add" 
+                                                    aria-selected="true"
+                                                    >{{ $sublyric->lyric_language }}</a>
+                                                </li>
+                                            @endforeach
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link text-success active" id="add-tab_{{ $key+1 }}" data-toggle="tab" href="#add_{{ $key+1 }}" role="tab" aria-controls="add" aria-selected="true">Tambah</a>
+                                                <a id="add-tab_{{ $key+1 }}" 
+                                                   href="#add_{{ $key+1 }}" 
+                                                   class="nav-link text-success{{ count($lyric->sublyric) === 0 ? ' active' : '' }}" 
+                                                   role="tab" 
+                                                   data-toggle="tab" 
+                                                   aria-controls="add" 
+                                                   aria-selected="true"
+                                                   >+</a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="card-body tab-content">
-                                        <div class="tab-pane fade show active" id="add_{{ $key+1 }}" role="tabpanel" aria-labelledby="add-tab_{{ $key+1 }}">
-                                            <a id="addLyric" href="#" class="btn btn-success" data-toggle="modal" data-target="#pageModal" data-url="{{ route('sub_lyric.index',['id'=>$lyric->id]) }}">Tambahkan lirik</a>
+                                        @foreach($lyric->sublyric as $keysub => $sublyric)
+                                            <div id="add_{{ $key+1 }}_{{ $keysub+1 }}" 
+                                                class="tab-pane fade show{{ $keysub+1 === 1 ? ' active' : '' }}" 
+                                                role="tabpanel" 
+                                                aria-labelledby="add-tab_{{ $key+1 }}_{{ $keysub+1 }}">
+                                                @foreach(json_decode($sublyric->lyric_content) as $content)
+                                                    <p>{{ $content }}</p>
+                                                @endforeach
+                                                <a id="lyric_sub_edit" 
+                                                   href="#" 
+                                                   class="btn btn-link text-success"
+                                                   data-toggle="modal" 
+                                                   data-target="#pageModal" 
+                                                   data-id="{{ $key+1 }}"
+                                                   data-url="{{ route('sublyric.edit',['id'=>$sublyric->id]) }}"
+                                                   data-title="Edit Lirik Versi {{ $lyric->version }}"
+                                                   >Edit</a>
+                                                <a id="lyric_sub_delete" 
+                                                   href="{{ route('sublyric.delete', ['id'=>$sublyric->id]) }}" 
+                                                   class="btn btn-link text-danger"
+                                                   >Hapus</a>
+                                            </div>
+                                        @endforeach
+                                        <div id="add_{{ $key+1 }}" 
+                                             class="tab-pane fade show{{ count($lyric->sublyric) === 0 ? ' active' : '' }}" 
+                                             role="tabpanel" 
+                                             aria-labelledby="add-tab_{{ $key+1 }}">
+                                            <a id="lyric_sub_add" 
+                                               href="#" 
+                                               class="btn btn-success" 
+                                               data-toggle="modal" 
+                                               data-target="#pageModal" 
+                                               data-id="{{ $key+1 }}" 
+                                               data-url="{{ route('sublyric.index',['id'=>$lyric->id]) }}" 
+                                               data-title="Buat Lirik Baru untuk Versi {{ $lyric->version }}"
+                                            >Tambahkan lirik</a>
                                         </div>
                                     </div>
                                 </div>
@@ -85,22 +138,37 @@
 @endsection
 
 @push('script')
+    let ModalHandler = new ModalSubLyric();
+    
     window.addEventListener('load', () => {
-        const sendElement = document.querySelectorAll('#addLyric');
-        const modalElement = document.querySelector('#pageModalContent');
-        const failedModal = `<p class="h3 p-4 text-center">Ada yang salah, silahkan coba lagi...</p>`;
-        load_modal(sendElement, modalElement, failedModal);
-    });
-    window.addEventListener('load', () => {
-        const callModal = document.querySelectorAll('#addLyric');
-        callModal.forEach((item) => {
+        const modal_element = document.querySelector('#pageModalContent');
+        const failed_modal = `<p class="h3 p-4 text-center">Ada yang salah, silahkan coba lagi...</p>`;
+        
+        const lyric_sub_add_call = document.querySelectorAll('#lyric_sub_add');
+        const lyric_sub_edit_call = document.querySelectorAll('#lyric_sub_edit');
+        const lyric_sub_delete_call = document.querySelectorAll('#lyric_sub_delete');
+
+        lyric_sub_add_call.forEach((item) => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
 
+                const id = item.getAttribute('data-id');
                 const url = item.getAttribute('data-url');
-                console.log(url);
+                const title = item.getAttribute('data-title');
 
-                <!-- const ModalItem = new ModalPopup(); -->
+                ModalHandler.init(id, url, title, modal_element, failed_modal);
+            });
+        });
+
+        lyric_sub_edit_call.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const id = item.getAttribute('data-id');
+                const url = item.getAttribute('data-url');
+                const title = item.getAttribute('data-title');
+
+                ModalHandler.init(id, url, title, modal_element, failed_modal);
             });
         });
     });
