@@ -59,6 +59,10 @@ class ModalPopup {
     }
 }
 
+class ModalLyric extends ModalPopup {
+    
+}
+
 class ModalSubLyric extends ModalPopup {
     set parent(parentRow) {
         this._parentRow = parentRow;
@@ -75,7 +79,7 @@ class ModalSubLyric extends ModalPopup {
                         Harus diisi.
                     </div>
                 </div>
-                <button id="deleteRow" id-parent="itemRow_${countChild}" type="button" class="btn btn-danger col-md-2 mt-2 mt-md-0" onclick="ModalHandler.deleteRows(this);">Hapus</button>
+                <button id="deleteRow" id-parent="itemRow_${countChild}" type="button" class="btn btn-danger col-md-2 mt-2 mt-md-0" onclick="ModalHandler_SubLyric.deleteRows(this);">Hapus</button>
             </div>
         `;
     

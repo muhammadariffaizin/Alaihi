@@ -1,5 +1,5 @@
 <script>
-    ModalHandler.parent = document.querySelector("#rowParent");
+    ModalHandler_SubLyric.parent = document.querySelector("#rowParent");
 </script>
 <form action="{{ route('sublyric.create') }}" method="POST" class="form needs-validation" novalidate>
     <div class="modal-body">
@@ -14,7 +14,7 @@
         </div>
         <div class="form-row d-flex flex-column my-3">
             <label for="addRow">{{ __('Isi Lirik') }}</label>
-            <button id="addRow" type="button" class="btn btn-success" onclick="ModalHandler.addRows();">Tambah baris baru</button>
+            <button id="addRow" type="button" class="btn btn-success" onclick="ModalHandler_SubLyric.addRows();">Tambah baris baru</button>
         </div>
         <div id="rowParent">
             <div id="itemRow_1" class="form-row mb-3">

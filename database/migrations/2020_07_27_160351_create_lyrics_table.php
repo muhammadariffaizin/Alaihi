@@ -15,7 +15,7 @@ class CreateLyricsTable extends Migration
     {
         Schema::create('lyrics', function (Blueprint $table) {
             $table->id();
-            $table->string('version')->unique();
+            $table->string('version');
             $table->foreignId('song_id')->constrained('songs')->onDelete('cascade');
             $table->text('description');
             $table->timestamps();

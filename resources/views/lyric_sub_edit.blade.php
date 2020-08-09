@@ -1,5 +1,5 @@
 <script>
-    ModalHandler.parent = document.querySelector("#rowParent");
+    ModalHandler_SubLyric.parent = document.querySelector("#rowParent");
 </script>
 <form action="{{ route('sublyric.update') }}" method="POST" class="form needs-validation" novalidate>
     <div class="modal-body">
@@ -14,7 +14,7 @@
         </div>
         <div class="form-row d-flex flex-column my-3">
             <label for="addRow">{{ __('Isi Lirik') }}</label>
-            <button id="addRow" type="button" class="btn btn-success" onclick="ModalHandler.addRows();">Tambah baris baru</button>
+            <button id="addRow" type="button" class="btn btn-success" onclick="ModalHandler_SubLyric.addRows();">Tambah baris baru</button>
         </div>
         <div id="rowParent">
         @foreach(json_decode($sublyric->lyric_content) as $key => $lyricrow)
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 @if($key+1 > 1)
-                <button id="deleteRow" id-parent="itemRow_{{ $key+1 }}" type="button" class="btn btn-danger col-md-2 mt-2 mt-md-0" onclick="ModalHandler.deleteRows(this);">Hapus</button>
+                <button id="deleteRow" id-parent="itemRow_{{ $key+1 }}" type="button" class="btn btn-danger col-md-2 mt-2 mt-md-0" onclick="ModalHandler_SubLyric.deleteRows(this);">Hapus</button>
                 @endif
             </div>
         @endforeach

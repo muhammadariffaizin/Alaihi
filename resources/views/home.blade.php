@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 mb-3">
             <div class="card mb-3 border-0 shadow">
                 <div class="card-header bg-success text-light">{{ __('Daftar Lirik Tersedia') }}</div>
 
@@ -49,7 +49,9 @@
                                 <label for="genre">Jenis</label>
                                 <select class="custom-select" id="genre" name="genre" required>
                                     <option selected disabled value="">Pilih...</option>
-                                    <option value="1">Sholawat</option>
+                                    @foreach($genres as $genre)
+                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                    @endforeach
                                 </select>
                                 <div class="invalid-feedback">
                                     Pilih salah satu.
@@ -76,6 +78,56 @@
                         </div>
                         
                         <button class="btn btn-success" type="submit">Tambahkan Sholawat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="list-group list-group-flush sticky-top sticky-margin">
+                <div class="list-group-item pt-0">
+                    <div class="card mb-3 border-0 shadow">
+                        <div class="card-header bg-success text-light">{{ __('Daftar Genre Tersedia') }}</div>
+
+                        <div class="card-body">
+                            @if($genres->count() > 0)
+                                <div class="list-group list-group-flush">
+                                @foreach($genres as $genre)
+                                    <div class="list-group-item">
+                                        <a href="{{ url('/genre', $genre->id) }}" class="h5 text-success">{{ $genre->name }}</a>
+                                        <p>{{ $genre->description }}</p>
+                                    </div>
+                                @endforeach
+                                </div>
+                            @else
+                                <p class="h4 text-center">Tidak ada data genre</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <p class="h3 mb-3">Tambahkan genre</p>
+                    <form action="{{ route('genre.create') }}" method="POST" class="form needs-validation" novalidate>
+                        @csrf
+                        <div class="form-row">
+                            <div class="col-12 mb-3">
+                                <label for="name">Nama</label>
+                                <input name="name" type="text" class="form-control" id="name" required>
+                                <div class="invalid-feedback">
+                                    Harus diisi.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 mb-3">
+                                <label for="description">Deskripsi</label>
+                                <textarea name="description" class="form-control" id="description" rows="2" required></textarea>
+                                <div class="invalid-feedback">
+                                    Harus diisi.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-success" type="submit">Tambahkan versi</button>
                     </form>
                 </div>
             </div>

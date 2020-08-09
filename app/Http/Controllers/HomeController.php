@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Song;
+use App\Genre;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $songs = Song::All();
-        return view('home', compact('songs'));
+        $genres = Genre::All();
+        return view('home', compact('songs', 'genres'));
     }
 }

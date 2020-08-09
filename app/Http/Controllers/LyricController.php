@@ -20,4 +20,38 @@ class LyricController extends Controller
         ]);
         return redirect()->back();
     }
+    
+    /**
+     * Mengedit data dari salah satu versi
+     *
+     * @return \App\Lyric
+     */
+    public function edit($id) {
+        $lyric = Lyric::where('id', $id)
+                    ->first();
+        return view('lyric_edit', compact('id', 'lyric'));
+    }
+
+    /**
+     * Mengupdate data dari salah satu versi
+     *
+     * @return \App\Lyric
+     */
+    public function update(Request $request) {
+        Lyric::where('id', $request->id)->update([
+            'version' => $request->version,
+            'description' => $request->description
+        ]);
+        return redirect()->back();
+    }
+
+    /**
+     * Menghapus data dari salah satu versi
+     *
+     * @return \App\Lyric
+     */
+    public function delete($id) {
+        Lyric::where('id', $id)->delete();
+        return redirect()->back();
+    }
 }

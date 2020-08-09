@@ -10,8 +10,19 @@
             <div class="col-md-8 mb-3">
                 <div class="row ml-3">
                     <a href="{{ route('home') }}" class="btn btn-link text-success">Kembali ke halaman utama</a>
-                    <a href="" class="btn btn-link text-success">Edit</a>
-                    <a href="" class="btn btn-link text-success">Hapus</a>
+                    <a id="song_edit" 
+                       href="#" 
+                       class="btn btn-link text-success"
+                       data-toggle="modal" 
+                       data-target="#pageModal" 
+                       data-id="1"
+                       data-url="{{ route('song.edit', ['id'=>$id]) }}"
+                       data-title="Edit Data Sholawat {{ $songs->name }}"
+                       >Edit</a>
+                    <a id="song_delete" 
+                       href="{{ route('song.delete', ['id'=>$id]) }}" 
+                       class="btn btn-link text-success"
+                       >Hapus</a>
                 </div>
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
@@ -21,26 +32,45 @@
                     </div>
                     <div class="list-group-item">
                         @if($lyrics->count() > 0)
-                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Versi sholawat yang tersedia</span>
                                 <span class="badge badge-success badge-pill">{{ $lyrics->count() }}</span>
-                            </h4>
+                            </h5>
                             @foreach($lyrics as $key => $lyric)
                                 <div class="card border-success my-3">
                                     <div class="card-header">
-                                        <h4 class="card-title">{{ $lyric->version }}</h4>
+                                        <h4 class="d-flex justify-content-between align-items-center card-title">
+                                            <span class="text-muted">{{ $lyric->version }}</span>
+                                            <a class="btn bg-transparent rounded-pill text-muted" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-sm fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                <a id="lyric_edit" 
+                                                   href="#"
+                                                   class="dropdown-item" 
+                                                   data-toggle="modal" 
+                                                   data-target="#pageModal" 
+                                                   data-id="{{ $key+1 }}"
+                                                   data-url="{{ route('lyric.edit', ['id'=>$lyric->id]) }}"
+                                                   data-title="Edit Versi Sholawat {{ $lyric->version }}"
+                                                   >Edit</a>
+                                                <a class="dropdown-item" 
+                                                   href="{{ route('lyric.delete', ['id'=>$lyric->id]) }}"
+                                                   >Hapus</a>
+                                            </div>
+                                        </h4>
                                         <p class="card-text">{{ $lyric->description }}</p>
                                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                                             @foreach($lyric->sublyric as $keysub => $sublyric)
                                                 <li class="nav-item" role="presentation">
                                                     <a id="add-tab_{{ $key+1 }}_{{ $keysub+1 }}" 
-                                                    href="#add_{{ $key+1 }}_{{ $keysub+1 }}" 
-                                                    class="nav-link text-success{{ $keysub+1 === 1 ? ' active' : '' }}"
-                                                    role="tab" 
-                                                    data-toggle="tab" 
-                                                    aria-controls="add" 
-                                                    aria-selected="true"
-                                                    >{{ $sublyric->lyric_language }}</a>
+                                                       href="#add_{{ $key+1 }}_{{ $keysub+1 }}" 
+                                                       class="nav-link text-success{{ $keysub+1 === 1 ? ' active' : '' }}"
+                                                       role="tab" 
+                                                       data-toggle="tab" 
+                                                       aria-controls="add" 
+                                                       aria-selected="true"
+                                                       >{{ $sublyric->lyric_language }}</a>
                                                 </li>
                                             @endforeach
                                             <li class="nav-item" role="presentation">
@@ -51,7 +81,7 @@
                                                    data-toggle="tab" 
                                                    aria-controls="add" 
                                                    aria-selected="true"
-                                                   >+</a>
+                                                   ><i class="fa fa-sm fa-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -138,15 +168,17 @@
 @endsection
 
 @push('script')
-    let ModalHandler = new ModalSubLyric();
+    let ModalHandler_SubLyric = new ModalSubLyric();
+    let ModalHandler_Lyric = new ModalLyric();
     
     window.addEventListener('load', () => {
         const modal_element = document.querySelector('#pageModalContent');
         const failed_modal = `<p class="h3 p-4 text-center">Ada yang salah, silahkan coba lagi...</p>`;
         
+        const song_edit_call = document.querySelectorAll('#song_edit');
+        const lyric_edit_call = document.querySelectorAll('#lyric_edit');
         const lyric_sub_add_call = document.querySelectorAll('#lyric_sub_add');
         const lyric_sub_edit_call = document.querySelectorAll('#lyric_sub_edit');
-        const lyric_sub_delete_call = document.querySelectorAll('#lyric_sub_delete');
 
         lyric_sub_add_call.forEach((item) => {
             item.addEventListener('click', (e) => {
@@ -156,7 +188,7 @@
                 const url = item.getAttribute('data-url');
                 const title = item.getAttribute('data-title');
 
-                ModalHandler.init(id, url, title, modal_element, failed_modal);
+                ModalHandler_SubLyric.init(id, url, title, modal_element, failed_modal);
             });
         });
 
@@ -168,7 +200,31 @@
                 const url = item.getAttribute('data-url');
                 const title = item.getAttribute('data-title');
 
-                ModalHandler.init(id, url, title, modal_element, failed_modal);
+                ModalHandler_SubLyric.init(id, url, title, modal_element, failed_modal);
+            });
+        });
+
+        lyric_edit_call.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const id = item.getAttribute('data-id');
+                const url = item.getAttribute('data-url');
+                const title = item.getAttribute('data-title');
+
+                ModalHandler_Lyric.init(id, url, title, modal_element, failed_modal);
+            });
+        });
+
+        song_edit_call.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const id = item.getAttribute('data-id');
+                const url = item.getAttribute('data-url');
+                const title = item.getAttribute('data-title');
+
+                ModalHandler_Lyric.init(id, url, title, modal_element, failed_modal);
             });
         });
     });
