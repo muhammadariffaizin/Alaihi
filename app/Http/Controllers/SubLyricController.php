@@ -15,7 +15,7 @@ class SubLyricController extends Controller
      */
     public function index($id) {
         
-        return view('lyric_sub_add', compact('id'));
+        return view('admin.lyric_sub_add', compact('id'));
     }
 
     /**
@@ -40,7 +40,7 @@ class SubLyricController extends Controller
     public function edit($id) {
         $sublyric = SubLyric::where('id', $id)
                     ->first();
-        return view('lyric_sub_edit', compact('id', 'sublyric'));
+        return view('admin.lyric_sub_edit', compact('id', 'sublyric'));
     }
 
     /**

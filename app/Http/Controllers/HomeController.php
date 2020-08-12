@@ -25,8 +25,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('home');
+    }
+
+    /**
+     * Show the admin application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function admin()
+    {
         $songs = Song::All();
         $genres = Genre::All();
-        return view('home', compact('songs', 'genres'));
+        return view('admin.home', compact('songs', 'genres'));
     }
 }

@@ -9,7 +9,7 @@
         <div class="row justifiy-content-center">
             <div class="col-md-8 mb-3">
                 <div class="row ml-3">
-                    <a href="{{ route('home') }}" class="btn btn-link text-success">Kembali ke halaman utama</a>
+                    <a href="{{ route('admin.home') }}" class="btn btn-link text-success">Kembali ke halaman utama</a>
                     <a id="song_edit" 
                        href="#" 
                        class="btn btn-link text-success"
@@ -26,7 +26,7 @@
                 </div>
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
-                        <a href="{{ url('/song', $songs->id) }}" class="h1 text-success">{{ $songs->name }}</a>
+                        <a href="{{ route('song.index',['id'=>$songs->id]) }}" class="h1 text-success">{{ $songs->name }}</a>
                         <p class="h5">{{ $songs->name_alias }}</p>
                         <p>{{ $songs->description }}</p>
                     </div>
@@ -170,6 +170,7 @@
 @push('script')
     let ModalHandler_SubLyric = new ModalSubLyric();
     let ModalHandler_Lyric = new ModalLyric();
+    let ModalHandler_Song = new ModalSong();
     
     window.addEventListener('load', () => {
         const modal_element = document.querySelector('#pageModalContent');
@@ -224,7 +225,7 @@
                 const url = item.getAttribute('data-url');
                 const title = item.getAttribute('data-title');
 
-                ModalHandler_Lyric.init(id, url, title, modal_element, failed_modal);
+                ModalHandler_Song.init(id, url, title, modal_element, failed_modal);
             });
         });
     });

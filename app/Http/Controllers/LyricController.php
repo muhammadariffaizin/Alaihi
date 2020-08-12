@@ -29,7 +29,7 @@ class LyricController extends Controller
     public function edit($id) {
         $lyric = Lyric::where('id', $id)
                     ->first();
-        return view('lyric_edit', compact('id', 'lyric'));
+        return view('admin.lyric_edit', compact('id', 'lyric'));
     }
 
     /**

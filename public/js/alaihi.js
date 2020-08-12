@@ -59,6 +59,10 @@ class ModalPopup {
     }
 }
 
+class ModalSong extends ModalPopup {
+    
+}
+
 class ModalLyric extends ModalPopup {
     
 }

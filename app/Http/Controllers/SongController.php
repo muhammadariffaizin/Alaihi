@@ -17,7 +17,7 @@ class SongController extends Controller
     public function index($id) {
         $songs = Song::where('id', $id)->first();
         $lyrics = Lyric::where('song_id', $id)->get();
-        return view('song_detail', compact('id', 'songs', 'lyrics'));
+        return view('admin.song_detail', compact('id', 'songs', 'lyrics'));
     }
 
     /**
@@ -45,7 +45,7 @@ class SongController extends Controller
         $song = Song::where('id', $id)
                     ->first();
         $genres = Genre::All();
-        return view('song_edit', compact('id', 'song', 'genres'));
+        return view('admin.song_edit', compact('id', 'song', 'genres'));
     }
 
     /**
@@ -55,8 +55,11 @@ class SongController extends Controller
      */
     public function update(Request $request) {
         Song::where('id', $request->id)->update([
-            'version' => $request->version,
-            'description' => $request->description
+            'name' => $request->name,
+            'name_alias' => $request->name_alias,
+            'genre_id' => $request->genre,
+            'description' => $request->description,
+            'source' => $request->source
         ]);
         return redirect()->back();
     }
@@ -68,6 +71,6 @@ class SongController extends Controller
      */
     public function delete($id) {
         Song::where('id', $id)->delete();
-        return redirect()->route('home');
+        return redirect()->route('admin.home');
     }
 }
