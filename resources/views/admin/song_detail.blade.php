@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('modal-content')
     <p class="h3 p-4 text-center">Memuat..</p>
@@ -8,21 +8,29 @@
     <div class="container">
         <div class="row justifiy-content-center">
             <div class="col-md-8 mb-3">
-                <div class="row ml-3">
-                    <a href="{{ route('admin.home') }}" class="btn btn-link text-success">Kembali ke halaman utama</a>
-                    <a id="song_edit" 
-                       href="#" 
-                       class="btn btn-link text-success"
-                       data-toggle="modal" 
-                       data-target="#pageModal" 
-                       data-id="1"
-                       data-url="{{ route('song.edit', ['id'=>$id]) }}"
-                       data-title="Edit Data Sholawat {{ $songs->name }}"
-                       >Edit</a>
-                    <a id="song_delete" 
-                       href="{{ route('song.delete', ['id'=>$id]) }}" 
-                       class="btn btn-link text-success"
-                       >Hapus</a>
+                <div class="row ml-3 justify-content-between">
+                    <a href="{{ route('admin.home') }}" class="btn btn-outline-success border-0 rounded-pill">
+                        <i class="fas fa-fw fa-arrow-left"></i>
+                    </a>
+                    <div>
+                        <a id="song_edit" 
+                           href="#" 
+                           class="btn btn-outline-success border-0 rounded-pill"
+                           data-toggle="modal" 
+                           data-target="#pageModal" 
+                           data-id="1"
+                           data-url="{{ route('song.edit', ['id'=>$id]) }}"
+                           data-title="Edit Data Sholawat {{ $songs->name }}"
+                           >
+                           <i class="fas fa-fw fa-pen"></i>
+                        </a>
+                        <a id="song_delete" 
+                           href="{{ route('song.delete', ['id'=>$id]) }}" 
+                           class="btn btn-outline-danger border-0 rounded-pill"
+                           >
+                           <i class="fas fa-fw fa-trash-alt"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
@@ -41,7 +49,7 @@
                                     <div class="card-header">
                                         <h4 class="d-flex justify-content-between align-items-center card-title">
                                             <span class="text-muted">{{ $lyric->version }}</span>
-                                            <a class="btn bg-transparent rounded-pill text-muted" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn btn-link rounded-pill text-muted" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-sm fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
@@ -133,9 +141,9 @@
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <div class="list-group list-group-flush sticky-top sticky-margin">
-                    <div class="list-group-item">
-                        <p class="h3 mb-3">Tambahkan versi sholawat</p>
+                <div class="card mb-3 border-0 shadow sticky-top sticky-margin">
+                    <div class="card-header bg-transparent border-0 px-4 pt-4 h5">Tambahkan versi sholawat</div>
+                    <div class="card-body">
                         <form action="{{ route('lyric.create') }}" method="POST" class="form needs-validation" novalidate>
                             @csrf
                             <input type="text" name="id" value="{{ $songs->id }}" hidden>

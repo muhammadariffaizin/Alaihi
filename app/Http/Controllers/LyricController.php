@@ -8,6 +8,16 @@ use App\Lyric;
 class LyricController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Membuat data versi lirik sholawat baru
      *
      * @return \App\Lyric

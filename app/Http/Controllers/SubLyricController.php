@@ -9,6 +9,16 @@ use App\SubLyric;
 class SubLyricController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Menampilkan halaman detail lirik.
      *
      * @return \App\Song

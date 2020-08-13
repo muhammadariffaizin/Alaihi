@@ -17,12 +17,17 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('user')->middleware('is_user')->group(function() {
+    Route::get('home', 'HomeController@index')->name('user.home');
+});
 
 Route::prefix('admin')->middleware('is_admin')->group(function() {
     Route::get('home', 'HomeController@admin')->name('admin.home');
+    Route::get('settings', 'SettingController@admin')->name('admin.settings');
+    Route::post('update', 'SettingController@update')->name('admin.update');
+    Route::post('update_password', 'SettingController@update_password')->name('admin.password');
     
     Route::prefix('genre')->group(function() {
         Route::get('/{id}', 'GenreController@index')->name('genre.index');

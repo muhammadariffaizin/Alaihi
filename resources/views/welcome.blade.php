@@ -8,7 +8,7 @@
                     @if(Auth::user()->is_admin == 1)
                     <a href="{{ route('admin.home') }}">Home</a>
                     @else
-                    <a href="{{ route('home') }}">Home</a>
+                    <a href="{{ route('user.home') }}">Home</a>
                     @endif
                 @else
                     <a href="{{ route('login') }}">Login</a>

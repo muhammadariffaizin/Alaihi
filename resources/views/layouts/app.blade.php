@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('body')
+<div class="offset-top">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success shadow">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -20,14 +21,12 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li class="nav-item">
+                        <li class="nav-item {{ (request()->route()->named('login')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
+                        <li class="nav-item {{ (request()->route()->named('register')) ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -79,6 +78,7 @@
     <main class="py-4">
         @yield('content')
     </main>
+</div>
 @endsection
 
 @push('scripts')

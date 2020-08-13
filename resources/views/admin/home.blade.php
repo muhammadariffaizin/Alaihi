@@ -1,31 +1,40 @@
-@extends('layouts.app')
+@extends('admin.layout')
+
+@section('title')
+<div class="px-4 pt-4 pb-2">
+    <h1 class="h4">Selamat Datang!</h1>
+    <p>{{ Auth::user()->name }}</p>
+</div>
+@endsection
 
 @section('content')
 <div class="container">
+    @if(session('error'))
+        <div class="alert alert-danger border-0 shadow" role="alert">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row justify-content-center">
-        <div class="col-md-8 mb-3">
-            @if(session('error'))
+        <div class="col-lg-8 mb-3">
             <div class="card mb-3 border-0 shadow">
-                <div class="card-header bg-danger text-light" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            @endif
+                <div class="card-header bg-transparent border-0 px-4 pt-4 h5">{{ __('Daftar Sholawat Tersedia') }}</div>
 
-            <div class="card mb-3 border-0 shadow">
-                <div class="card-header bg-success text-light">{{ __('Daftar Lirik Tersedia') }}</div>
-
-                <div class="card-body">
+                <div class="card-body pt-0">
                     @if($songs->count() > 0)
                         <div class="list-group list-group-flush">
                         @foreach($songs as $song)
-                            <div class="list-group-item">
-                                <a href="{{ route('song.index',['id'=>$song->id]) }}" class="h5 text-success">{{ $song->name }}</a>
-                                <p class="h6">{{ $song->name_alias }}</p>
-                                <p>{{ $song->description }}</p>
+                            <div class="list-group-item row d-flex flex-row">
+                                <div class="col-sm-9 px-0">
+                                    <a href="{{ route('song.index',['id'=>$song->id]) }}" class="h5 text-success"><strong>{{ $song->name }}</strong></a>
+                                    <p class="mb-0 text-description">{{ $song->description }}</p>
+                                </div>
+                                <div class="col-sm-3 px-0 text-right justify-content-center align-self-center">
+                                    <h3 class="@if($song->lyric->count() > 0) text-success @else text-danger @endif">{{ $song->lyric->count() }}</h3>
+                                    <span>Versi lirik</span>
+                                </div>
                             </div>
                         @endforeach
                         </div>
@@ -35,7 +44,7 @@
                 </div>
             </div>
             <div class="card mb-3 border-0 shadow">
-                <div class="card-header bg-success text-light">{{ __('Tambahkan Data Sholawat Baru') }}</div>
+                <div class="card-header bg-transparent border-0 px-4 pt-4 h5">{{ __('Tambahkan Data Sholawat Baru') }}</div>
                 <div class="card-body">
                     <form action="{{ route('song.create') }}" method="POST" class="form needs-validation" novalidate>
                         @csrf
@@ -93,30 +102,34 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="list-group list-group-flush sticky-top sticky-margin">
-                <div class="list-group-item pt-0">
-                    <div class="card mb-3 border-0 shadow">
-                        <div class="card-header bg-success text-light">{{ __('Daftar Genre Tersedia') }}</div>
+        <div class="col-lg-4 mb-3">
+            <div class="card mb-3 border-0 shadow">
+                <div class="card-header bg-transparent border-0 px-4 pt-4 h5">{{ __('Daftar Genre Tersedia') }}</div>
 
-                        <div class="card-body">
-                            @if($genres->count() > 0)
-                                <div class="list-group list-group-flush">
-                                @foreach($genres as $genre)
-                                    <div class="list-group-item">
-                                        <a href="{{ route('genre.index',['id'=>$genre->id]) }}" class="h5 text-success">{{ $genre->name }}</a>
-                                        <p>{{ $genre->description }}</p>
-                                    </div>
-                                @endforeach
+                <div class="card-body pt-0">
+                    @if($genres->count() > 0)
+                        <div class="list-group list-group-flush ">
+                        @foreach($genres as $genre)
+                            <div class="list-group-item row d-flex flex-row">
+                                <div class="col-sm-8 px-0">
+                                    <a href="{{ route('genre.index',['id'=>$genre->id]) }}" class="h5 text-success"><strong>{{ $genre->name }}</strong></a>
+                                    <p class="mb-0 text-description">{{ $genre->description }}</p>
                                 </div>
-                            @else
-                                <p class="h4 text-center">Tidak ada data genre</p>
-                            @endif
+                                <div class="col-sm-4 px-0 text-right justify-content-center align-self-center">
+                                    <h3 class="@if($genre->song->count() > 0) text-success @else text-danger @endif">{{ $genre->song->count() }}</h3>
+                                    <span>Data sholawat</span>
+                                </div>
+                            </div>
+                        @endforeach
                         </div>
-                    </div>
+                    @else
+                        <p class="h4 text-center">Tidak ada data genre</p>
+                    @endif
                 </div>
-                <div class="list-group-item">
-                    <p class="h3 mb-3">Tambahkan genre</p>
+            </div>
+            <div class="card mb-3 border-0 shadow">
+                <div class="card-header bg-transparent border-0 px-4 pt-4 h5">{{ __('Tambahkan Data Genre Baru') }}</div>
+                <div class="card-body">
                     <form action="{{ route('genre.create') }}" method="POST" class="form needs-validation" novalidate>
                         @csrf
                         <div class="form-row">
@@ -144,6 +157,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

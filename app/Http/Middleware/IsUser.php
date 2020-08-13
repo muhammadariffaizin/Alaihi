@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsAdmin
+class IsUser
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,10 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->is_admin == 1) {
+        if(auth()->user()->is_admin != 1) {
             return $next($request);
         }
    
-        return redirect()->route('user.home')->with('error',"Anda tidak mempunyai akses Admin.");
+        return redirect()->route('admin.home')->with('error',"Anda adalah Admin.");
     }
 }

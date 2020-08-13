@@ -10,6 +10,16 @@ use App\Genre;
 class SongController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Menampilkan halaman detail lirik.
      *
      * @return \App\Song
@@ -26,6 +36,10 @@ class SongController extends Controller
      * @return \App\Song
      */
     public function create(Request $request) {
+        $check = Song::where('name', $request->name)->count();
+        if($check > 0) {
+            return redirect()->back()->with('error', 'Gagal menambahkan data sholawat! Data sudah tersedia');
+        }
         Song::create([
             'name' => $request->name,
             'name_alias' => $request->name_alias,
