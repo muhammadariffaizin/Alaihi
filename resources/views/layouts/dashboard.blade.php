@@ -2,16 +2,17 @@
 
 @section('body')
 <nav class="navbar navbar-dark sticky-top bg-success flex-md-nowrap shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{{ route('welcome') }}">{{ config('app.name', 'Alaihi') }}</a>
-    <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse"
-        data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"
+        href="{{ route('welcome') }}">{{ config('app.name', 'Alaihi') }}</a>
+    <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#sidebarMenu"
+        aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="navbar-nav ml-md-auto px-3">
         @auth
         <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }} <span class="caret"></span>
             </a>
 
@@ -68,8 +69,9 @@
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
 
-    @push('scripts')
-    @stack('script')
-    @endpush
+@push('scripts')
+@stack('script')
+@endpush

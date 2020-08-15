@@ -78,7 +78,7 @@ class ModalSubLyric extends ModalPopup {
             <div id="itemRow_${countChild}" class="form-row mb-3">
                 <label for="language" class="col-md-2 col-form-label text-md-center">${countChild}</label>
                 <div class="col-md-8">
-                    <input id="lyric_content" type="text" class="form-control" name="lyric_content[]" required>
+                    <input id="lyric_content_${countChild}" type="text" class="form-control" name="lyric_content[]" onpaste="ModalHandler_SubLyric.pasteMultiLine(this, event);" required>
                     <div class="invalid-feedback">
                         Harus diisi.
                     </div>
@@ -101,6 +101,27 @@ class ModalSubLyric extends ModalPopup {
         let labelNumber = this._parentRow.querySelectorAll("label");
         for(let i=0; i < labelNumber.length; i++) {
             labelNumber[i].innerText = i+1;
+            labelNumber[i].id = `lyric_content_${i+1}`;
         }
     };
+
+    pasteMultiLine(el, event) {
+        const oldValue = el.value;
+        const clipData = event.clipboardData || window.clipboardData || event.originalEvent.clipboardData;
+        const pastedData = clipData.getData('Text');
+        const arrayData = pastedData.split('\n');
+        let currentParentNode = el.parentNode.parentNode;
+        let siblings = [];
+        while(currentParentNode = currentParentNode.nextElementSibling) {
+            siblings.push(currentParentNode.querySelector('input'));
+        }
+        siblings.forEach((item, index) => {
+            if(arrayData[index+1] !== undefined) {
+                item.value = arrayData[index+1];
+            }
+        });
+        setTimeout(() => {
+            el.value = oldValue + arrayData[0];
+        }, 4);
+    }
 }

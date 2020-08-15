@@ -35,7 +35,7 @@ class HomeController extends Controller
      */
     public function admin()
     {
-        $songs = Song::All();
+        $songs = Song::orderBy('created_at', 'DESC')->paginate(3);
         $genres = Genre::All();
         return view('admin.home', compact('songs', 'genres'));
     }

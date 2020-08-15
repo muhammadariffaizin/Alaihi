@@ -129,3 +129,21 @@ body {
   font-size: .75rem;
   text-transform: uppercase;
 }
+
+
+/*
+ * Pagination
+ */
+
+.pagination {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.page-item.active .page-link {
+  background-color: #38c172;
+  border-color: #38c172;
+}
+
+.page-link {
+  color: #38c172;
+}

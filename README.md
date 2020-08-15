@@ -1,3 +1,6 @@
+# Alaihi
+Proyek ini dibuat untuk mengumpulkan lirik arti, maupun informasi lainnya dari sholawat-sholawat kepada Rasulullah SAW. Tujuannya agar para pecinta sholawat kepada Rasulullah SAW dapat dengan mudah mengakses atau mendapatkan informasi lengkap tentang sholawat yang dibaca dengan valid dan mengerti arti maupun makna yang terkandung di dalamnya dengan baik.
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">

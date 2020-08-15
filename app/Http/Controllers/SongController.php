@@ -31,6 +31,16 @@ class SongController extends Controller
     }
 
     /**
+     * Menampilkan halaman daftar lirik.
+     *
+     * @return \App\Song
+     */
+    public function list() {
+        $songs = Song::orderBy('created_at', 'DESC')->paginate(5);
+        return view('admin.song_list', compact('songs'));
+    }
+
+    /**
      * Membuat data lirik sholawat baru
      *
      * @return \App\Song

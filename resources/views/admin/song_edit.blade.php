@@ -14,7 +14,7 @@
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="name_alias">Nama lain</label>
-                <input type="text" class="form-control" id="name_alias" name="name_alias" value="{{ $song->name_alias }}" required>
+                <input type="text" class="form-control" id="name_alias" name="name_alias" value="{{ $song->name_alias }}">
                 <div class="invalid-feedback">
                     Harus diisi.
                 </div>

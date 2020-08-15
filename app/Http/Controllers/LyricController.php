@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lyric;
+use App\SubLyric;
 
 class LyricController extends Controller
 {
@@ -28,7 +29,7 @@ class LyricController extends Controller
             'song_id' => $request->id,
             'description' => $request->description
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Lirik versi '.$request->version.' berhasil dibuat');
     }
     
     /**
@@ -61,7 +62,32 @@ class LyricController extends Controller
      * @return \App\Lyric
      */
     public function delete($id) {
+        $name = Lyric::where('id', $id)->first();
         Lyric::where('id', $id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Lirik versi '.$name->name.' berhasil dihapus');
+    }
+
+    /**
+     * Menggandakan data dari salah satu versi
+     *
+     * @return \App\Lyric
+     */
+    public function duplicate($id) {
+        $copy = Lyric::where('id', $id)->first();
+        Lyric::create([
+            'version' => $copy->version.' - salinan',
+            'song_id' => $copy->song_id,
+            'description' => $copy->description
+        ]);
+        $paste = Lyric::where('version', $copy->version.' - salinan')->first();
+        $copy_sub = SubLyric::where('lyric_id', $id)->get();
+        for($i = 0; $i < $copy_sub->count(); $i++) {
+            SubLyric::create([
+                'lyric_id' => $paste->id,
+                'lyric_language' => $copy_sub[$i]->lyric_language,
+                'lyric_content' => $copy_sub[$i]->lyric_content,
+            ]);
+        }
+        return redirect()->back()->with('success', 'Lirik versi '.$copy->version.' berhasil digandakan');
     }
 }

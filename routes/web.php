@@ -35,6 +35,8 @@ Route::prefix('admin')->middleware('is_admin')->group(function() {
     });
     
     Route::prefix('song')->group(function() {
+        Route::get('/list', 'SongController@list')->name('song.list');
+        Route::get('/list/search', 'SearchController@search')->name('song.search');
         Route::get('/{id}', 'SongController@index')->name('song.index');
         Route::post('/create', 'SongController@create')->name('song.create');
         Route::get('/edit/{id}', 'SongController@edit')->name('song.edit');
@@ -47,6 +49,7 @@ Route::prefix('admin')->middleware('is_admin')->group(function() {
         Route::get('/edit/{id}', 'LyricController@edit')->name('lyric.edit');
         Route::post('/update', 'LyricController@update')->name('lyric.update');
         Route::get('/delete/{id}', 'LyricController@delete')->name('lyric.delete');
+        Route::get('/duplicate/{id}', 'LyricController@duplicate')->name('lyric.duplicate');
     });
     
     Route::prefix('sublyric')->group(function() {

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('admin.layout')
 
 @section('modal-content')
     <p class="h3 p-4 text-center">Memuat..</p>
@@ -32,6 +32,30 @@
                         </a>
                     </div>
                 </div>
+                @if(session('error'))
+                    <div class="alert alert-danger border-0 shadow" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger border-0 shadow" role="alert">
+                        {{ $error }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endforeach
+                @if(session('success'))
+                    <div class="alert alert-success border-0 shadow" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
                         <a href="{{ route('song.index',['id'=>$songs->id]) }}" class="h1 text-success">{{ $songs->name }}</a>
@@ -49,8 +73,10 @@
                                     <div class="card-header">
                                         <h4 class="d-flex justify-content-between align-items-center card-title">
                                             <span class="text-muted">{{ $lyric->version }}</span>
-                                            <a class="btn btn-link rounded-pill text-muted" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-sm fa-ellipsis-v"></i>
+                                            <a class="text-muted pr-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <small>
+                                                    <i class="fa fa-sm fa-ellipsis-v"></i>
+                                                </small>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                                 <a id="lyric_edit" 
@@ -62,6 +88,9 @@
                                                    data-url="{{ route('lyric.edit', ['id'=>$lyric->id]) }}"
                                                    data-title="Edit Versi Sholawat {{ $lyric->version }}"
                                                    >Edit</a>
+                                                <a class="dropdown-item" 
+                                                   href="{{ route('lyric.duplicate', ['id'=>$lyric->id]) }}"
+                                                   >Duplikat</a>
                                                 <a class="dropdown-item" 
                                                    href="{{ route('lyric.delete', ['id'=>$lyric->id]) }}"
                                                    >Hapus</a>
@@ -104,17 +133,17 @@
                                                 @endforeach
                                                 <a id="lyric_sub_edit" 
                                                    href="#" 
-                                                   class="btn btn-link text-success"
+                                                   class="btn  btn-outline-success border-0 rounded-pill"
                                                    data-toggle="modal" 
                                                    data-target="#pageModal" 
                                                    data-id="{{ $key+1 }}"
                                                    data-url="{{ route('sublyric.edit',['id'=>$sublyric->id]) }}"
                                                    data-title="Edit Lirik Versi {{ $lyric->version }}"
-                                                   >Edit</a>
+                                                   ><i class="fas fa-fw fa-sm fa-pen"></i></a>
                                                 <a id="lyric_sub_delete" 
                                                    href="{{ route('sublyric.delete', ['id'=>$sublyric->id]) }}" 
-                                                   class="btn btn-link text-danger"
-                                                   >Hapus</a>
+                                                   class="btn btn-outline-danger border-0 rounded-pill"
+                                                   ><i class="fas fa-fw fa-sm fa-trash-alt"></i></a>
                                             </div>
                                         @endforeach
                                         <div id="add_{{ $key+1 }}" 
