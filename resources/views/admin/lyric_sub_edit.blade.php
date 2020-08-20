@@ -21,7 +21,7 @@
             <div id="itemRow_{{ $key+1 }}" class="form-row mb-3">
                 <label for="language" class="col-md-2 col-form-label text-md-center">{{ $key+1 }}</label>
                 <div class="col-md-8">
-                    <input id="lyric_content" type="text" class="form-control" name="lyric_content[]" value="{{ $lyricrow }}" required>
+                    <input id="lyric_content" type="text" class="form-control" name="lyric_content[]" onpaste="ModalHandler_SubLyric.pasteMultiLine(this, event);" value="{{ $lyricrow }}" required>
                     <div class="invalid-feedback">
                         Harus diisi.
                     </div>

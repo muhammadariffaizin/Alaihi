@@ -2,6 +2,21 @@
 
 @section('sidebar')
                 <ul class="nav flex-column">
+                    <li class="nav-item border-bottom mb-3">
+                        <a id="song_add" 
+                           href="#" 
+                           class="btn btn-success border-0 shadow rounded-pill mx-4 my-3"
+                           data-toggle="modal" 
+                           data-target="#pageModal" 
+                           data-id="0"
+                           data-url="{{ route('song.add') }}"
+                           data-title="Tambahkan Data Sholawat Baru"
+                           >
+                           <i class="fas fa-fw fa-plus"></i>
+                           Tambah Sholawat
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->route()->named('admin.home')) ? 'active' : '' }}" href="{{ route('admin.home') }}">
                             <i class="fas fa-fw fa-home"></i>
@@ -43,3 +58,26 @@
                     </li>
                 </ul>
 @endsection
+
+@push('scripts_component')
+    let ModalHandler_Song_Add = new ModalSong();
+
+    window.addEventListener('load', () => {
+        const modal_element = document.querySelector('#pageModalContent');
+        const failed_modal = `<p class="h3 p-4 text-center">Ada yang salah, silahkan coba lagi...</p>`;
+        
+        const modal_add_song_call = document.querySelectorAll('#song_add');
+        
+        modal_add_song_call.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const id = item.getAttribute('data-id');
+                const url = item.getAttribute('data-url');
+                const title = item.getAttribute('data-title');
+
+                ModalHandler_Song_Add.init(id, url, title, modal_element, failed_modal);
+            });
+        });
+    });
+@endpush

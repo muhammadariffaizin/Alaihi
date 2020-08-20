@@ -35,7 +35,7 @@ class LyricController extends Controller
     /**
      * Mengedit data dari salah satu versi
      *
-     * @return \App\Lyric
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function edit($id) {
         $lyric = Lyric::where('id', $id)
@@ -53,7 +53,7 @@ class LyricController extends Controller
             'version' => $request->version,
             'description' => $request->description
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Lirik versi '.$request->version.' berhasil diperbarui');
     }
 
     /**
@@ -64,7 +64,7 @@ class LyricController extends Controller
     public function delete($id) {
         $name = Lyric::where('id', $id)->first();
         Lyric::where('id', $id)->delete();
-        return redirect()->back()->with('success', 'Lirik versi '.$name->name.' berhasil dihapus');
+        return redirect()->back()->with('success', 'Lirik versi '.$name->version.' berhasil dihapus');
     }
 
     /**

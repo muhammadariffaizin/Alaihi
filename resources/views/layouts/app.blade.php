@@ -21,7 +21,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li class="nav-item {{ (request()->route()->named('login')) ? 'active' : '' }}">
+                        <li class="nav-item{{ (request()->route()->named('login')) ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         <li class="nav-item {{ (request()->route()->named('register')) ? 'active' : '' }}">
@@ -80,7 +80,3 @@
     </main>
 </div>
 @endsection
-
-@push('scripts')
-@stack('script')
-@endpush

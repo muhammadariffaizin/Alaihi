@@ -1,15 +1,16 @@
 @extends('admin.layout')
 
 @section('modal-content')
-    <p class="h3 p-4 text-center">Memuat..</p>
+<p class="h3 p-4 text-center">Memuat..</p>
 @endsection
 
 @section('content')
+    @includeIf('components.alert')
     <div class="container">
         <div class="row justifiy-content-center">
             <div class="col-md-8 mb-3">
                 <div class="row ml-3 justify-content-between">
-                    <a href="{{ route('admin.home') }}" class="btn btn-outline-success border-0 rounded-pill">
+                    <a href="{{ session('url.intended') }}" class="btn btn-outline-success border-0 rounded-pill">
                         <i class="fas fa-fw fa-arrow-left"></i>
                     </a>
                     <div>
@@ -25,41 +26,26 @@
                            <i class="fas fa-fw fa-pen"></i>
                         </a>
                         <a id="song_delete" 
-                           href="{{ route('song.delete', ['id'=>$id]) }}" 
+                           href="#" 
+                           data-id="1" 
+                           data-toggle="modal" 
+                           data-target="#pageModal" 
+                           data-dest="{{ route('song.delete', ['id'=>$id]) }}"
+                           data-title="Konfirmasi Hapus Data Sholawat"
+                           data-message="Apakah Anda yakin ingin menghapus data sholawat ini?"
                            class="btn btn-outline-danger border-0 rounded-pill"
                            >
                            <i class="fas fa-fw fa-trash-alt"></i>
                         </a>
                     </div>
                 </div>
-                @if(session('error'))
-                    <div class="alert alert-danger border-0 shadow" role="alert">
-                        {{ session('error') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-                @foreach($errors->all() as $error)
-                    <div class="alert alert-danger border-0 shadow" role="alert">
-                        {{ $error }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endforeach
-                @if(session('success'))
-                    <div class="alert alert-success border-0 shadow" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
                         <a href="{{ route('song.index',['id'=>$songs->id]) }}" class="h1 text-success">{{ $songs->name }}</a>
-                        <p class="h5">{{ $songs->name_alias }}</p>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <p class="h5">{{ $songs->name_alias }}</p>
+                            <small class="text-black-50">diperbarui {{ Carbon\Carbon::parse($songs->updated_at)->diffForHumans() }}</small>
+                        </div>
                         <p>{{ $songs->description }}</p>
                     </div>
                     <div class="list-group-item">
@@ -69,11 +55,11 @@
                                 <span class="badge badge-success badge-pill">{{ $lyrics->count() }}</span>
                             </h5>
                             @foreach($lyrics as $key => $lyric)
-                                <div class="card border-success my-3">
-                                    <div class="card-header">
+                                <div class="card my-3 border-0 shadow">
+                                    <div class="card-header bg-success">
                                         <h4 class="d-flex justify-content-between align-items-center card-title">
-                                            <span class="text-muted">{{ $lyric->version }}</span>
-                                            <a class="text-muted pr-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-light">{{ $lyric->version }}</span>
+                                            <a class="text-light pr-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <small>
                                                     <i class="fa fa-sm fa-ellipsis-v"></i>
                                                 </small>
@@ -91,18 +77,25 @@
                                                 <a class="dropdown-item" 
                                                    href="{{ route('lyric.duplicate', ['id'=>$lyric->id]) }}"
                                                    >Duplikat</a>
-                                                <a class="dropdown-item" 
-                                                   href="{{ route('lyric.delete', ['id'=>$lyric->id]) }}"
+                                                <a id="lyric_delete" 
+                                                   href="#"
+                                                   class="dropdown-item" 
+                                                   data-id="{{ $lyric->id }}" 
+                                                   data-toggle="modal" 
+                                                   data-target="#pageModal" 
+                                                   data-dest="{{ route('lyric.delete', ['id'=>$lyric->id]) }}"
+                                                   data-title="Konfirmasi Hapus Data Versi Sholawat"
+                                                   data-message="Apakah Anda yakin ingin menghapus data versi sholawat ini?"
                                                    >Hapus</a>
                                             </div>
                                         </h4>
-                                        <p class="card-text">{{ $lyric->description }}</p>
+                                        <p class="card-text text-light">{{ $lyric->description }}</p>
                                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                                             @foreach($lyric->sublyric as $keysub => $sublyric)
                                                 <li class="nav-item" role="presentation">
                                                     <a id="add-tab_{{ $key+1 }}_{{ $keysub+1 }}" 
                                                        href="#add_{{ $key+1 }}_{{ $keysub+1 }}" 
-                                                       class="nav-link text-success{{ $keysub+1 === 1 ? ' active' : '' }}"
+                                                       class="nav-link text-light{{ $keysub+1 === 1 ? ' active' : '' }}"
                                                        role="tab" 
                                                        data-toggle="tab" 
                                                        aria-controls="add" 
@@ -113,7 +106,7 @@
                                             <li class="nav-item" role="presentation">
                                                 <a id="add-tab_{{ $key+1 }}" 
                                                    href="#add_{{ $key+1 }}" 
-                                                   class="nav-link text-success{{ count($lyric->sublyric) === 0 ? ' active' : '' }}" 
+                                                   class="nav-link text-light{{ count($lyric->sublyric) === 0 ? ' active' : '' }}" 
                                                    role="tab" 
                                                    data-toggle="tab" 
                                                    aria-controls="add" 
@@ -128,12 +121,15 @@
                                                 class="tab-pane fade show{{ $keysub+1 === 1 ? ' active' : '' }}" 
                                                 role="tabpanel" 
                                                 aria-labelledby="add-tab_{{ $key+1 }}_{{ $keysub+1 }}">
-                                                @foreach(json_decode($sublyric->lyric_content) as $content)
+                                                <p class="text-black-50 text-right">diperbarui {{ Carbon\Carbon::parse($sublyric->updated_at)->diffForHumans() }}</p>
+                                                <div class="{{ $sublyric->lyric_language == 'Arab' ? 'arabic-font' : '' }}">
+                                                    @foreach(json_decode($sublyric->lyric_content) as $content)
                                                     <p>{{ $content }}</p>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                                 <a id="lyric_sub_edit" 
                                                    href="#" 
-                                                   class="btn  btn-outline-success border-0 rounded-pill"
+                                                   class="btn btn-outline-success border-0 rounded-pill"
                                                    data-toggle="modal" 
                                                    data-target="#pageModal" 
                                                    data-id="{{ $key+1 }}"
@@ -141,8 +137,14 @@
                                                    data-title="Edit Lirik Versi {{ $lyric->version }}"
                                                    ><i class="fas fa-fw fa-sm fa-pen"></i></a>
                                                 <a id="lyric_sub_delete" 
-                                                   href="{{ route('sublyric.delete', ['id'=>$sublyric->id]) }}" 
+                                                   href="#" 
                                                    class="btn btn-outline-danger border-0 rounded-pill"
+                                                   data-id="{{ $lyric->id }}_{{ $sublyric->id }}" 
+                                                   data-toggle="modal" 
+                                                   data-target="#pageModal" 
+                                                   data-dest="{{ route('sublyric.delete', ['id'=>$sublyric->id]) }}"
+                                                   data-title="Komfirmasi Hapus Data Lirik Sholawat"
+                                                   data-message="Apakah Anda yakin ingin menghapus data lirik sholawat ini?"
                                                    ><i class="fas fa-fw fa-sm fa-trash-alt"></i></a>
                                             </div>
                                         @endforeach
@@ -204,21 +206,35 @@
     </div>
 @endsection
 
-@push('script')
+@push('scripts_after')
     let ModalHandler_SubLyric = new ModalSubLyric();
     let ModalHandler_Lyric = new ModalLyric();
     let ModalHandler_Song = new ModalSong();
+    let ModalHandler_Confirm = new ModalConfirm();
     
     window.addEventListener('load', () => {
         const modal_element = document.querySelector('#pageModalContent');
         const failed_modal = `<p class="h3 p-4 text-center">Ada yang salah, silahkan coba lagi...</p>`;
         
-        const song_edit_call = document.querySelectorAll('#song_edit');
-        const lyric_edit_call = document.querySelectorAll('#lyric_edit');
-        const lyric_sub_add_call = document.querySelectorAll('#lyric_sub_add');
-        const lyric_sub_edit_call = document.querySelectorAll('#lyric_sub_edit');
+        const modal_sub_call = document.querySelectorAll('#lyric_sub_add, #lyric_sub_edit');
+        const modal_lyric_call = document.querySelectorAll('#lyric_edit');
+        const modal_song_call = document.querySelectorAll('#song_edit');
+        const modal_confirm_call = document.querySelectorAll('#song_delete, #lyric_delete, #lyric_sub_delete');
 
-        lyric_sub_add_call.forEach((item) => {
+        modal_confirm_call.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const id = item.getAttribute('data-id');
+                const title = item.getAttribute('data-title');
+                const dest = item.getAttribute('data-dest');
+                const message = '<p class=" pt-3 text-center">' + item.getAttribute('data-message') + '</p>';
+
+                ModalHandler_Confirm.init(id, title, modal_element, message, dest);
+            })
+        });
+        
+        modal_sub_call.forEach((item) => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
 
@@ -230,19 +246,7 @@
             });
         });
 
-        lyric_sub_edit_call.forEach((item) => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const id = item.getAttribute('data-id');
-                const url = item.getAttribute('data-url');
-                const title = item.getAttribute('data-title');
-
-                ModalHandler_SubLyric.init(id, url, title, modal_element, failed_modal);
-            });
-        });
-
-        lyric_edit_call.forEach((item) => {
+        modal_lyric_call.forEach((item) => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
 
@@ -254,7 +258,7 @@
             });
         });
 
-        song_edit_call.forEach((item) => {
+        modal_song_call.forEach((item) => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
 

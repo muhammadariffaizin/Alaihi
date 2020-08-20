@@ -1,37 +1,11 @@
 @extends('admin.layout')
 
-@section('title')
+@section('content')
+@includeIf('components.alert')
 <div class="px-4 pt-4 pb-2">
     <h1 class="h4">Pengaturan</h1>
 </div>
-@endsection
-
-@section('content')
 <div class="container">
-    @if(session('error'))
-        <div class="alert alert-danger border-0 shadow" role="alert">
-            {{ session('error') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    @foreach($errors->all() as $error)
-        <div class="alert alert-danger border-0 shadow" role="alert">
-            {{ $error }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endforeach
-    @if(session('success'))
-        <div class="alert alert-success border-0 shadow" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
     <div class="row">
         <div class="col-lg-6 mb-3">
             <div class="card mb-3 border-0 shadow">

@@ -20,12 +20,18 @@ window.addEventListener('load', () => {
 }, false);
 
 class ModalPopup {
-    init(id, url, title, modal, failedMsg) {
+    init(id, title, modal) {
         this._id = id;
-        this._url = url;
         this._title = title;
         this._modal = modal;
-        this._failedMsg = failedMsg;
+    }
+}
+
+class ModalAjax extends ModalPopup {
+    init(id, url, title, modal, failed_msg) {
+        super.init(id, title, modal);
+        this._url = url;
+        this._failed_msg = failed_msg;
         this.load();
     }
 
@@ -38,12 +44,12 @@ class ModalPopup {
             .done((data) => {
                 // add header
                 this._modal.innerHTML = `
-                <div class="modal-header bg-success text-light border-0">
-                    <h5 class="modal-title">${ this._title }</h5>
-                    <button type="button" class="close btn-success" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="text-light">&times;</span>
-                    </button>
-                </div>
+                    <div class="modal-header bg-success text-light border-0">
+                        <h5 class="modal-title">${ this._title }</h5>
+                        <button type="button" class="close btn-success" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">&times;</span>
+                        </button>
+                    </div>
                 `;
                 
                 // modal.innerHTML += data;     cannot run the script in the middle
@@ -59,15 +65,46 @@ class ModalPopup {
     }
 }
 
-class ModalSong extends ModalPopup {
+class ModalConfirm extends ModalPopup {
+    init(id, title, modal, confirm_msg, dest_link) {
+        super.init(id, title, modal);
+        this._confirm_msg = confirm_msg;
+        this._dest_link = dest_link;
+        this.load();
+    }
+
+    load() {
+        this._modal.innerHTML = `
+            <div class="modal-header bg-success text-light border-0">
+                <h5 class="modal-title">${ this._title }</h5>
+                <button type="button" class="close btn-success" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-light">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ${ this._confirm_msg }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-light" data-dismiss="modal">Batalkan</button>
+                <a href="${ this._dest_link }" class="btn btn-success">Lanjutkan</a>
+            </div>
+        `;
+    }
+}
+
+class ModalGenre extends ModalAjax {
     
 }
 
-class ModalLyric extends ModalPopup {
+class ModalSong extends ModalAjax {
     
 }
 
-class ModalSubLyric extends ModalPopup {
+class ModalLyric extends ModalAjax {
+    
+}
+
+class ModalSubLyric extends ModalAjax {
     set parent(parentRow) {
         this._parentRow = parentRow;
     }

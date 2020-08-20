@@ -1,11 +1,10 @@
-<form action="{{ route('song.update') }}" method="POST" class="form needs-validation" novalidate>
+<form action="{{ route('song.create') }}" method="POST" class="form needs-validation" novalidate>
+    @csrf
     <div class="modal-body">
-        @csrf
-        <input type="text" name="id" value="{{ $id }}" hidden>
         <div class="form-row">
             <div class="col-12 mb-3">
                 <label for="name">Judul sholawat</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $song->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" required>
                 <div class="invalid-feedback">
                     Harus diisi.
                 </div>
@@ -14,7 +13,7 @@
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="name_alias">Nama lain</label>
-                <input type="text" class="form-control" id="name_alias" name="name_alias" value="{{ $song->name_alias }}">
+                <input type="text" class="form-control" id="name_alias" name="name_alias">
                 <div class="invalid-feedback">
                     Harus diisi.
                 </div>
@@ -22,9 +21,9 @@
             <div class="col-md-6 mb-3">
                 <label for="genre">Jenis</label>
                 <select class="custom-select" id="genre" name="genre" required>
-                    <option disabled value="">Pilih...</option>
+                    <option selected disabled value="">Pilih...</option>
                     @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}"{{ $song->genre_id == $genre->id ? ' selected' : '' }}>{{ $genre->name }}</option>
+                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
                     @endforeach
                 </select>
                 <div class="invalid-feedback">
@@ -35,7 +34,8 @@
         <div class="form-row">
             <div class="col-12 mb-3">
                 <label for="description">Deskripsi</label>
-                <textarea name="description" class="form-control" id="description" rows="2" required>{{ $song->description }}</textarea>
+                <textarea name="description" class="form-control" id="description" rows="2"
+                    required></textarea>
                 <div class="invalid-feedback">
                     Harus diisi.
                 </div>
@@ -44,16 +44,16 @@
         <div class="form-row">
             <div class="col-12 mb-3">
                 <label for="source">Sumber</label>
-                <textarea name="source" class="form-control" id="source" rows="3">{{ $song->source }}</textarea>
+                <textarea name="source" class="form-control" id="source" rows="3"></textarea>
                 <div class="invalid-feedback">
                     Harus diisi.
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary btn-light" data-dismiss="modal">Batalkan</button>
-        <button type="submit" class="btn btn-success">Perbarui sholawat</button>
+        <button class="btn btn-success" type="submit">Tambahkan Sholawat</button>
     </div>
 </form>

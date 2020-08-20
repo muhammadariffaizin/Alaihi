@@ -1,48 +1,25 @@
 @extends('admin.layout')
 
-@section('title')
+@section('content')
+@includeIf('components.alert')
 <div class="px-4 pt-4 pb-2">
     <h1 class="h4">Daftar Sholawat yang Tersedia</h1>
     <p>Daftar sholawat yang tersedia berdasarkan waktu dibuat.</p>
 </div>
-@endsection
-
-@section('content')
 <div class="container">
-    @if(session('error'))
-    <div class="alert alert-danger border-0 shadow" role="alert">
-        {{ session('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
-    @foreach($errors->all() as $error)
-    <div class="alert alert-danger border-0 shadow" role="alert">
-        {{ $error }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endforeach
-    @if(session('success'))
-    <div class="alert alert-success border-0 shadow" role="alert">
-        {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
     <form id="form_search" class="form" action="{{ route('song.search') }}" method="GET">
         <div class="row justify-content-between align-items-center">
             <div class="col-md-8">
-                <div class="rounded bg-success border-0 shadow">
-                    <input id="search" class="form-control border-0 ml-1" type="text" name="search" placeholder="Cari di sini.." aria-label="Search">
+                <div class="input-group border-0 shadow mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text border-0 bg-success text-light" id="searchaddon"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input id="search" class="form-control border-0 ml-1" type="text" name="search" placeholder="Cari di sini.." aria-label="Search" aria-describedby="searchaddon">
                 </div>
             </div>
         </div>
     </form>
-    <p class="h6 my-4">Menampilkan {{ $songs->firstItem() }} - {{ $songs->lastItem() }} dari {{ $songs->total() }}
+    <p class="h6 mb-4">Menampilkan {{ $songs->firstItem() }} - {{ $songs->lastItem() }} dari {{ $songs->total() }}
             lirik sholawat</p>
     <div class="row justify-content-center">
         <div class="col mb-3">

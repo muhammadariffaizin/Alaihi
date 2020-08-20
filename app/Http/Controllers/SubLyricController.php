@@ -21,7 +21,7 @@ class SubLyricController extends Controller
     /**
      * Menampilkan halaman detail lirik.
      *
-     * @return \App\Song
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index($id) {
         
@@ -45,7 +45,7 @@ class SubLyricController extends Controller
     /**
      * Mengedit data detail lirik dari salah satu versi
      *
-     * @return \App\SubLyric
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function edit($id) {
         $sublyric = SubLyric::where('id', $id)

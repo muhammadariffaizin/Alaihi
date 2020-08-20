@@ -10,7 +10,7 @@ class SearchController extends Controller
     /**
      * Menampilkan halaman detail lirik.
      *
-     * @return \App\Song
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function search(Request $request) {
         $find = $request->search;

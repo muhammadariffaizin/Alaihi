@@ -58,10 +58,19 @@ body {
     margin-bottom: 30px;
 }
 
+/*
+ * Dropdown
+ */
+
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     background-color: #38c172 !important;
 }
+
+
+/*
+ * Description Text
+ */
 
 .text-description {
     display: -webkit-box;
@@ -109,6 +118,13 @@ body {
 .sidebar .nav-link {
   font-weight: 500;
   color: #333;
+  padding: 0.6rem;
+  margin: 0.1rem 0.5rem;
+  border-radius: 0.25rem !important;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #f5f5f5;
 }
 
 .sidebar .nav-link .feather {
@@ -117,7 +133,9 @@ body {
 }
 
 .sidebar .nav-link.active {
-  color: #38c172;
+  background-color: #38c172;
+  color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .sidebar .nav-link:hover .feather,
@@ -134,9 +152,9 @@ body {
 /*
  * Pagination
  */
-
+ 
 .pagination {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+ box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .page-item.active .page-link {
@@ -146,4 +164,40 @@ body {
 
 .page-link {
   color: #38c172;
+}
+
+/*
+ * Tabs
+ */
+
+.nav-tabs .nav-link:hover {
+  border-color: #38c172;
+  color: white !important;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: white;
+  border-color: white;
+  color: #38c172 !important;
+}
+
+/*
+ * Custom Card Icon
+ */
+
+.card-icon {
+  margin-top: -15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left !important;
+}
+
+/*
+ * Custom Font
+ */
+
+.arabic-font {
+  font-family: 'Scheherazade', serif;
+  font-size: 1.75rem;
+  text-align: right;
 }

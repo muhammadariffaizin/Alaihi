@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use App\Song;
 use App\Lyric;
 use App\Genre;
@@ -22,7 +23,7 @@ class SongController extends Controller
     /**
      * Menampilkan halaman detail lirik.
      *
-     * @return \App\Song
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index($id) {
         $songs = Song::where('id', $id)->first();
@@ -33,10 +34,11 @@ class SongController extends Controller
     /**
      * Menampilkan halaman daftar lirik.
      *
-     * @return \App\Song
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function list() {
         $songs = Song::orderBy('created_at', 'DESC')->paginate(5);
+        session()->put('url.intended', URL::current());
         return view('admin.song_list', compact('songs'));
     }
 
@@ -50,20 +52,30 @@ class SongController extends Controller
         if($check > 0) {
             return redirect()->back()->with('error', 'Gagal menambahkan data sholawat! Data sudah tersedia');
         }
-        Song::create([
+        $song = Song::create([
             'name' => $request->name,
             'name_alias' => $request->name_alias,
             'genre_id' => $request->genre,
             'description' => $request->description,
             'source' => $request->source
         ]);
-        return redirect()->back();
+        return redirect()->route('song.index', ['id' => $song->id]);
     }
         
     /**
+     * Menampilkan popup data baru
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function add() {
+        $genres = Genre::All();
+        return view('admin.song_add', compact('genres'));
+    }
+
+    /**
      * Mengedit data dari lagu
      *
-     * @return \App\Song
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function edit($id) {
         $song = Song::where('id', $id)
@@ -85,7 +97,7 @@ class SongController extends Controller
             'description' => $request->description,
             'source' => $request->source
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data sholawat berhasil dibuat');
     }
 
     /**
@@ -95,6 +107,6 @@ class SongController extends Controller
      */
     public function delete($id) {
         Song::where('id', $id)->delete();
-        return redirect()->route('admin.home');
+        return redirect()->route('admin.home')->with('success', 'Data sholawat berhasil dihapus');
     }
 }

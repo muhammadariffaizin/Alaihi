@@ -4,6 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @includeIf('components.alert')
+            
             <div class="card border-0 shadow">
                 <div class="card-header bg-success border-0 text-light">{{ __('Register') }}</div>
 
