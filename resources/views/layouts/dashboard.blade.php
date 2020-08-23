@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('body')
-<nav class="navbar navbar-dark sticky-top bg-success flex-md-nowrap shadow">
+<nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap shadow">
     <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"
         href="{{ route('welcome') }}">{{ config('app.name', 'Alaihi') }}</a>
     <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#sidebarMenu"
@@ -19,7 +19,7 @@
             <div class="dropdown-menu dropdown-menu-right position-absolute" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                    {{ __('Keluar') }}
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -49,9 +49,9 @@
             aria-labelledby="pageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div id="pageModalContent" class="modal-content border-0">
-                    <div class="modal-header bg-success text-light border-0">
+                    <div class="modal-header bg-primary text-light border-0">
                         <h5 id="modal-title" class="modal-title">@yield('modal-title')</h5>
-                        <button type="button" class="close bg-success" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close bg-primary" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="text-light">&times;</span>
                         </button>
                     </div>

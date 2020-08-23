@@ -12,7 +12,7 @@
             <div class="col-md-8">
                 <div class="input-group border-0 shadow mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text border-0 bg-success text-light" id="searchaddon"><i class="fas fa-search"></i></span>
+                        <span class="input-group-text border-0 bg-primary text-light" id="searchaddon"><i class="fas fa-search"></i></span>
                     </div>
                     <input id="search" class="form-control border-0 ml-1" type="text" name="search" placeholder="Cari di sini.." aria-label="Search" aria-describedby="searchaddon">
                 </div>
@@ -31,11 +31,11 @@
                         <div class="list-group-item row d-flex flex-row">
                             <div class="col-sm-9 px-0">
                                 <a href="{{ route('song.index',['id'=>$song->id]) }}"
-                                    class="h5 text-success"><strong>{{ $song->name }}</strong></a>
+                                    class="h5 text-primary"><strong>{{ $song->name }}</strong></a>
                                 <p class="mb-0 text-description">{{ $song->description }}</p>
                             </div>
                             <div class="col-sm-3 px-0 text-right justify-content-center align-self-center">
-                                <h3 class="@if($song->lyric->count() > 0) text-success @else text-danger @endif">
+                                <h3 class="@if($song->lyric->count() > 0) text-primary @else text-danger @endif">
                                     {{ $song->lyric->count() }}</h3>
                                 <span>Versi lirik</span>
                             </div>

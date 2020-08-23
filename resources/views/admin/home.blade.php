@@ -15,7 +15,7 @@
         <div class="col-md-4 mb-4">
             <div class="card mb-3 border-0 shadow h-100">
                 <div class="d-flex justify-content-left flex-md-wrap flex-lg-nowrap">
-                    <div class="rounded bg-success border-0 shadow text-light card-icon">
+                    <div class="rounded bg-primary border-0 shadow text-light card-icon">
                         <i class="fas fa-3x fa-save p-4"></i>
                     </div>
                     <div class="card-header bg-transparent border-0 pt-4 pl-0 pl-md-4 h5">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <div class="list-group row list-group-flush">
-                        <div class="list-group-item d-flex justify-content-between">
+                        <div class="list-group-item d-flex justify-content-between flex-wrap">
                             <span class="h1">{{ $songs->total() }}</span>
                             <span class="pl-3 text-muted text-right">Sholawat Tersedia</span>
                         </div>
@@ -35,7 +35,7 @@
         <div class="col-md-8 mb-4">
             <div class="card mb-3 border-0 shadow h-100">
                 <div class="d-flex justify-content-left flex-md-wrap flex-lg-nowrap">
-                    <div class="rounded bg-success border-0 shadow text-light card-icon">
+                    <div class="rounded bg-primary border-0 shadow text-light card-icon">
                         <i class="fas fa-3x fa-crosshairs p-4"></i>
                     </div>
                     <div class="card-header bg-transparent border-0 pt-4 pl-0 pl-md-4 h5">
@@ -45,7 +45,7 @@
                 <div class="card-body d-flex flex-column justify-content-around">
                     <span>Jumlah data sholawat yang tersedia dibandingkan dengan target yang telah ditetapkan</span>
                     <div class="progress mt-2">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ $songs->total() }}%" aria-valuenow="{{ $songs->total() }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $songs->total() }}%" aria-valuenow="{{ $songs->total() }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span>{{ $songs->total() }} dari 100</span>
                 </div>
@@ -59,7 +59,7 @@
                     <div class="d-flex justify-content-between align-items-center p-0">
                         {{ __('Sholawat Terbaru') }}
                         @if($songs->total() > 3)
-                            <small><a href="{{ route('song.list') }}" class="text-sm text-success">lihat selengkapnya</a></small>
+                            <small><a href="{{ route('song.list') }}" class="text-sm text-primary">lihat selengkapnya</a></small>
                         @endif
                     </div>
                 </div>
@@ -71,11 +71,11 @@
                         <div class="list-group-item row d-flex flex-row">
                             <div class="col-sm-9 px-0">
                                 <a href="{{ route('song.index',['id'=>$song->id]) }}"
-                                    class="h5 text-success"><strong>{{ $song->name }}</strong></a>
+                                    class="h5 text-primary"><strong>{{ $song->name }}</strong></a>
                                 <p class="mb-0 text-description">{{ $song->description }}</p>
                             </div>
                             <div class="col-sm-3 px-0 text-right justify-content-center align-self-center">
-                                <h3 class="@if($song->lyric->count() > 0) text-success @else text-danger @endif">
+                                <h3 class="@if($song->lyric->count() > 0) text-primary @else text-danger @endif">
                                     {{ $song->lyric->count() }}</h3>
                                 <span>Versi lirik</span>
                             </div>
@@ -100,7 +100,7 @@
                             <div class="col-sm-8 px-0">
                                 <a id="genre_edit" 
                                    href="#" 
-                                   class="h5 text-success"
+                                   class="h5 text-primary"
                                    data-toggle="modal" 
                                    data-target="#pageModal" 
                                    data-id="{{ $key+1 }}"
@@ -110,7 +110,7 @@
                                 <p class="mb-0 text-description">{{ $genre->description }}</p>
                             </div>
                             <div class="col-sm-4 px-0 text-right justify-content-center align-self-center">
-                                <h3 class="@if($genre->song->count() > 0) text-success @else text-danger @endif">
+                                <h3 class="@if($genre->song->count() > 0) text-primary @else text-danger @endif">
                                     {{ $genre->song->count() }}</h3>
                                 <span>Data sholawat</span>
                             </div>
@@ -148,7 +148,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-success" type="submit">Tambahkan versi</button>
+                        <button class="btn btn-primary" type="submit">Tambahkan versi</button>
                     </form>
                 </div>
             </div>
@@ -158,7 +158,6 @@
 @endsection
 
 @push('scripts_after')
-    let ModalHandler_Genre = new ModalGenre();
 
     window.addEventListener('load', () => {
         const modal_element = document.querySelector('#pageModalContent');

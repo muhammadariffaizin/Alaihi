@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         
-                        <button class="btn btn-success" type="submit">Perbarui Profil</button>
+                        <button class="btn btn-primary" type="submit">Perbarui Profil</button>
                     </form>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         
-                        <button class="btn btn-success" type="submit">Perbarui Sandi</button>
+                        <button class="btn btn-primary" type="submit">Perbarui Sandi</button>
                     </form>
                 </div>
             </div>

@@ -7,7 +7,7 @@
             @includeIf('components.alert')
             
             <div class="card border-0 shadow">
-                <div class="card-header bg-success border-0 text-light">{{ __('Register') }}</div>
+                <div class="card-header bg-primary border-0 text-light">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -65,7 +65,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-success">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>

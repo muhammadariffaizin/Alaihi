@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
             <div class="card mb-3 border-0 shadow">
-                <div class="card-header bg-success border-0 text-light">{{ __('Dashboard') }}</div>
+                <div class="card-header bg-primary border-0 text-light">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
                     Halo user!

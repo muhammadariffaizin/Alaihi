@@ -10,13 +10,13 @@
         <div class="row justifiy-content-center">
             <div class="col-md-8 mb-3">
                 <div class="row ml-3 justify-content-between">
-                    <a href="{{ session('url.intended') }}" class="btn btn-outline-success border-0 rounded-pill">
+                    <a href="{{ session('url.intended') }}" class="btn btn-outline-primary border-0 rounded-pill">
                         <i class="fas fa-fw fa-arrow-left"></i>
                     </a>
                     <div>
                         <a id="song_edit" 
                            href="#" 
-                           class="btn btn-outline-success border-0 rounded-pill"
+                           class="btn btn-outline-primary border-0 rounded-pill"
                            data-toggle="modal" 
                            data-target="#pageModal" 
                            data-id="1"
@@ -41,7 +41,7 @@
                 </div>
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
-                        <a href="{{ route('song.index',['id'=>$songs->id]) }}" class="h1 text-success">{{ $songs->name }}</a>
+                        <a href="{{ route('song.index',['id'=>$songs->id]) }}" class="h1 text-primary">{{ $songs->name }}</a>
                         <div class="d-flex justify-content-between align-items-start">
                             <p class="h5">{{ $songs->name_alias }}</p>
                             <small class="text-black-50">diperbarui {{ Carbon\Carbon::parse($songs->updated_at)->diffForHumans() }}</small>
@@ -52,11 +52,11 @@
                         @if($lyrics->count() > 0)
                             <h5 class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Versi sholawat yang tersedia</span>
-                                <span class="badge badge-success badge-pill">{{ $lyrics->count() }}</span>
+                                <span class="badge badge-primary badge-pill">{{ $lyrics->count() }}</span>
                             </h5>
                             @foreach($lyrics as $key => $lyric)
                                 <div class="card my-3 border-0 shadow">
-                                    <div class="card-header bg-success">
+                                    <div class="card-header bg-primary">
                                         <h4 class="d-flex justify-content-between align-items-center card-title">
                                             <span class="text-light">{{ $lyric->version }}</span>
                                             <a class="text-light pr-1" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,7 +129,7 @@
                                                 </div>
                                                 <a id="lyric_sub_edit" 
                                                    href="#" 
-                                                   class="btn btn-outline-success border-0 rounded-pill"
+                                                   class="btn btn-outline-primary border-0 rounded-pill"
                                                    data-toggle="modal" 
                                                    data-target="#pageModal" 
                                                    data-id="{{ $key+1 }}"
@@ -154,7 +154,7 @@
                                              aria-labelledby="add-tab_{{ $key+1 }}">
                                             <a id="lyric_sub_add" 
                                                href="#" 
-                                               class="btn btn-success" 
+                                               class="btn btn-primary" 
                                                data-toggle="modal" 
                                                data-target="#pageModal" 
                                                data-id="{{ $key+1 }}" 
@@ -197,7 +197,7 @@
                                 </div>
                             </div>
                             
-                            <button class="btn btn-success" type="submit">Tambahkan versi</button>
+                            <button class="btn btn-primary" type="submit">Tambahkan versi</button>
                         </form>
                     </div>
                 </div>
@@ -207,10 +207,6 @@
 @endsection
 
 @push('scripts_after')
-    let ModalHandler_SubLyric = new ModalSubLyric();
-    let ModalHandler_Lyric = new ModalLyric();
-    let ModalHandler_Song = new ModalSong();
-    let ModalHandler_Confirm = new ModalConfirm();
     
     window.addEventListener('load', () => {
         const modal_element = document.querySelector('#pageModalContent');

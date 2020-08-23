@@ -21,4 +21,15 @@ class Song extends Model
     public function lyric() {
         return $this->hasMany('App\Lyric');
     }
+
+    /**
+     * Get the 
+     *
+     * @return bool
+     */
+    public function getGenre()
+    {
+        
+        return $this;
+    }
 }

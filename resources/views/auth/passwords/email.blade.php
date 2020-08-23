@@ -7,11 +7,11 @@
             @includeIf('components.alert')
             
             <div class="card border-0 shadow">
-                <div class="card-header bg-success border-0 text-light">{{ __('Reset Password') }}</div>
+                <div class="card-header bg-primary border-0 text-light">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-primary" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif

@@ -21,8 +21,8 @@
     <div class="modal-footer justify-content-between">
         <a href="{{ route('genre.delete', ['id' => $id]) }}" class="btn btn-danger">Hapus genre</a>
         <div>
-            <button type="button" class="btn btn-outline-secondary btn-light" data-dismiss="modal">Batalkan</button>
-            <button type="submit" class="btn btn-success">Perbarui genre</button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batalkan</button>
+            <button type="submit" class="btn btn-primary">Perbarui genre</button>
         </div>
     </div>
 </form>

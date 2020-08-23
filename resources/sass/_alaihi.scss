@@ -1,0 +1,129 @@
+// Body
+$body-bg: #fff;
+
+// Enable Gradients
+$enable-gradients : true;
+
+// Theme Colors
+$theme-colors: (
+    'primary': #44b276,
+    'info' : #333f57,
+    'success' : #4ab05b,
+    'warning' : #c7a023,
+    'danger' : #f44336,
+    'light-shadow' : #e9efed,
+    'secondary' : #e1a95b,
+    'secondary-dark' : #a87256,
+);
+
+/*
+ * Dropdown
+ */
+
+.dropdown-item.active, .dropdown-item:active {
+    color: var(--light);
+    background-color: var(--primary) !important;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding-top: 48px; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+
+  .nav-link {
+    font-weight: 500;
+    color: var(--dark);
+    padding: 0.6rem;
+    margin: 0.1rem 0.5rem;
+    border-radius: 0.25rem !important;
+
+    .feather {
+      margin-right: 4px;
+      color: var(--light-shadow);
+    }
+  }
+
+  .nav-link:hover {
+    background-color: var(--light-shadow);
+  }
+
+  .nav-link.active {
+    background-color: var(--primary);
+    color: var(--light);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .nav-link:hover .feather,
+  .nav-link.active .feather {
+    color: inherit;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+  
+/*
+ * Pagination
+ */
+ 
+.pagination {
+ box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.page-link {
+  color: var(--primary);
+}
+
+/*
+ * Tabs
+ */
+.nav-tabs {
+    .nav-link:hover {
+      border-color: var(--primary);
+      color: var(--light) !important;
+    }
+
+    .nav-link.active {
+      background-color: var(--light);
+      border-color: var(--light);
+      color: var(--primary) !important;
+    }
+}
+

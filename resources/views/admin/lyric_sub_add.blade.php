@@ -14,7 +14,7 @@
         </div>
         <div class="form-row d-flex flex-column my-3">
             <label for="addRow">{{ __('Isi Lirik') }}</label>
-            <button id="addRow" type="button" class="btn btn-success" onclick="ModalHandler_SubLyric.addRows();">Tambah baris baru</button>
+            <button id="addRow" type="button" class="btn btn-primary" onclick="ModalHandler_SubLyric.addRows();">Tambah baris baru</button>
         </div>
         <div id="rowParent">
             <div id="itemRow_1" class="form-row mb-3">
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary btn-light" data-dismiss="modal">Batalkan</button>
-        <button type="submit" class="btn btn-success">Tambah lirik</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batalkan</button>
+        <button type="submit" class="btn btn-primary">Tambah lirik</button>
     </div>
 </form>

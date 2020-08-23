@@ -2,7 +2,7 @@
 
 @section('body')
 <div class="offset-top">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success shadow">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary shadow">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Alaihi') }}
@@ -55,9 +55,9 @@
         <div id="pageModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="pageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div id="pageModalContent" class="modal-content border-0">
-                    <div class="modal-header bg-success text-light border-0">
+                    <div class="modal-header bg-primary text-light border-0">
                         <h5 id="modal-title" class="modal-title">@yield('modal-title')</h5>
-                        <button type="button" class="close bg-success" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close bg-primary" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="text-light">&times;</span>
                         </button>
                     </div>

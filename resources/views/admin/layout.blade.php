@@ -5,7 +5,7 @@
                     <li class="nav-item border-bottom mb-3">
                         <a id="song_add" 
                            href="#" 
-                           class="btn btn-success border-0 shadow rounded-pill mx-4 my-3"
+                           class="btn btn-primary border-0 shadow rounded-pill mx-4 my-3"
                            data-toggle="modal" 
                            data-target="#pageModal" 
                            data-id="0"
@@ -60,8 +60,6 @@
 @endsection
 
 @push('scripts_component')
-    let ModalHandler_Song_Add = new ModalSong();
-
     window.addEventListener('load', () => {
         const modal_element = document.querySelector('#pageModalContent');
         const failed_modal = `<p class="h3 p-4 text-center">Ada yang salah, silahkan coba lagi...</p>`;
@@ -76,7 +74,7 @@
                 const url = item.getAttribute('data-url');
                 const title = item.getAttribute('data-title');
 
-                ModalHandler_Song_Add.init(id, url, title, modal_element, failed_modal);
+                ModalHandler_Song.init(id, url, title, modal_element, failed_modal);
             });
         });
     });

@@ -53,7 +53,7 @@
     </div>
     
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary btn-light" data-dismiss="modal">Batalkan</button>
-        <button type="submit" class="btn btn-success">Perbarui sholawat</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batalkan</button>
+        <button type="submit" class="btn btn-primary">Perbarui sholawat</button>
     </div>
 </form>
